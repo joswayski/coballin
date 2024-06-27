@@ -1,9 +1,10 @@
-FROM opensourcecobol/opensource-cobol
+FROM --platform=linux/arm64 ubuntu:20.04
 
-WORKDIR /app
+RUN apt-get update && apt-get install -y gnucobol
 
-COPY railway.cbl .
+COPY railway /railway
+RUN chmod +x /railway
 
 EXPOSE 8080
 
-CMD ["cobcrun", "railway"]
+CMD ["/railway"]
